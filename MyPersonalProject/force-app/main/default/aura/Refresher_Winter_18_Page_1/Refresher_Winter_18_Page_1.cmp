@@ -1,0 +1,508 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    
+    <aura:attribute name="liked" type="Boolean" default="true"/>
+    <aura:attribute name="options" type="List" default="[
+                                                        {'label': 'Ross', 'value': 'option1'},
+                                                        {'label': 'Rachel', 'value': 'option2'},
+                                                        ]"/>
+    <aura:attribute name="value" type="List" default="option1"/>
+    
+    <aura:attribute name="statusOptions" type="List" default="[]"/>
+    
+    <aura:attribute name="mydata" type="Object"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    
+    <aura:attribute name="listOptions" type="List" default="[]"/>
+    <aura:attribute name="defaultOptions" type="List" default="[]"/>
+    <aura:attribute name="requiredOptions" type="List" default="[]"/>
+	<aura:attribute name="richtext" type="String"/>
+    
+    <aura:attribute name="progress" type="Integer" default="0"/>
+    
+    <aura:attribute name="optionsRadio" type="List" default="[
+                                                        {'label': 'apples', 'value': 'option1'},
+                                                        {'label': 'oranges', 'value': 'option2'}
+                                                        ]"/>
+    <aura:attribute name="valueOption" type="String" default="option1"/>
+    <aura:attribute name="myval" default="10" type="Integer"/>
+    
+    <aura:attribute name="myNumber" type="integer" default="10"/>
+    
+    <aura:attribute name="items" type="Object"/>
+    
+    
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <div class="page-container slds-box">
+        
+        <div class="page-header slds-page-header" role="banner">
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-4">
+                </div>
+                <div class="slds-col slds-size_2-of-4">
+                    <div class="slds-align_absolute-center page-header-text" style="vertical-align:middle;">Refresher Winter 18</div>
+                </div>
+                <div class="slds-col slds-size_1-of-4"></div>
+            </div>
+        </div>
+        
+        <div class="page-subheader" role="banner">
+            <div class="slds-align_absolute-center page-subheader-text" style="vertical-align:middle;">New And Updated Lightning Components</div>
+        </div>
+        
+    	<div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:accordion</div>
+            <div class="tag-usage-header"><b>Usage:</b></div>
+            <div class="tag-usage-content slds-box">
+                
+            	<lightning:accordion activeSectionName="B">
+                    <lightning:accordionSection name="A" label="Accordion Title A">This is the content area for section A</lightning:accordionSection>
+                    <lightning:accordionSection name="B" label="Accordion Title B">This is the content area for section B</lightning:accordionSection>
+                    <lightning:accordionSection name="C" label="Description">
+                		<div class="tag-description-content slds-box">
+                    		A lightning:accordion component groups related content in a single container. Only one accordion section is expanded at a time.
+                    	</div>
+                	</lightning:accordionSection>
+                </lightning:accordion>
+            </div>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:buttonIconStateful</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+    					<lightning:buttonIconStateful iconName="utility:like" selected="{!v.liked}" alternativeText="Like" onclick="{! c.handleToggle }"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	An icon-only button that retains state. The state changes when you press the button.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:checkboxGroup</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:checkboxGroup aura:id="mygroup"
+                                                 name="checkboxGroup"
+                                                 label="Checkbox Group"
+                                                 options="{! v.options }"
+                                                 value="{! v.value }"
+                                                 onchange="{! c.handleChange }"
+                                                 required="true" />
+                        
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	A checkbox group that enables selection of single or multiple checkboxes.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:combobox</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:combobox aura:id="selectItem" name="status" label="Status"
+                                            placeholder="Choose Status"
+                                            value="new"
+                                            onchange="{!c.handleChange}"
+                                            options="{!v.statusOptions}"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	A read-only input field that contains a dropdown list of selectable options. Multiple selection is currently not supported.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:datatable</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:datatable data="{! v.mydata }" 
+                                             columns="{! v.mycolumns }" 
+                                             keyField="id"
+                                             onrowselection="{! c.getSelectedName }"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	A table that displays columns of data, formatted according to type.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:dualListbox</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:dualListbox aura:id="selectOptions" name="Select Options"  label="Select Options" 
+                                               sourceLabel="Available Options" 
+                                               selectedLabel="Selected Options" 
+                                               options="{! v.listOptions }"
+                                               value="{! v.defaultOptions }"
+                                               requiredOptions="{! v.requiredOptions }"
+                                               onchange="{! c.handleChange }"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Represents two side-by-side list boxes. Select one or more options in the list on the left. Move selected options to the list on the right. The order of the selected options is maintained, and you can reorder options. You can also specify required options.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:dynamicIcon</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:dynamicIcon type="EQ" alternativeText="Your calculation is running."/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Represents various dynamic icons with different states. For example, you can use this component to visually display an event that’s in progress, such as a graph that’s loading. The following options are available.
+                        <br/>Ellie: A pulsing blue circle, which pulses and stops after one animation cycle
+                        <br/>EQ: An animated graph with three bars that rise and fall randomly
+                        <br/>Score: A green filled circle or a red unfilled circle
+                        <br/>Strength: Three animated horizontal circles that are colored green or red
+                        <br/>Trend: Animated arrows that point up, down, or straight
+                        <br/>Waffle: A square made up of a 3x3 grid of circles, which animates on hover
+
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:fileCard</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:fileCard fileId="0690K000008tMphQAE"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Displays a representation of content uploaded as an attachment.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:formattedEmail</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:formattedEmail value="hello@myemail.com" />
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Displays an email address as a hyperlink with the mailto: URL scheme.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:formattedLocation</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:formattedLocation latitude="37.7938460" longitude="-122.3948370"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Displays a geolocation in decimal degrees using the format [latitude, longitude].
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:formattedPhone</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <p><lightning:formattedPhone value="4253334444"></lightning:formattedPhone></p>
+                        <p><lightning:formattedPhone value="14253334444"></lightning:formattedPhone></p>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Displays a formatted phone number as a hyperlink with the tel: URL scheme. Only North American phone numbers are currently supported.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:formattedRichText</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <!-- Rich text editor and formatted output -->
+                        <lightning:inputRichText value="{!v.richtext}"/>
+                        <lightning:formattedRichText value="{!v.richtext}" />
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Displays rich text that’s formatted with whitelisted tags and attributes. Other tags and attributes are removed and only their text content is displayed.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:formattedText</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:formattedText linkify="true" value="I like salesforce.com and trailhead.salesforce.com." />
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Displays text, replaces newlines with line breaks, and creates hyperlinks within a text block
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:formattedUrl</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:formattedUrl value="www.salesforce.com" />
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Displays a URL as a hyperlink.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:helptext</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:helptext content="Your email address will be your login name" />
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	An icon with a text popover. The popover is displayed when you hover or focus on the icon that’s attached to it. Manual positioning of the popover is currently not supported.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:inputLocation</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:inputLocation label="My Coordinates" latitude="37.7938460" longitude="-122.3948370"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Represents a geolocation compound field that accepts a latitude and longitude value.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:notificationsLibrary</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:notificationsLibrary aura:id="notifLib"/>
+                        <lightning:button name="notice" label="Show Notice" onclick="{!c.handleShowNotice}"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Provides messaging functionality via notices and toasts. Notices alert users to system-related issues and updates.
+                        Toasts enable you to provide feedback and serve as a confirmation mechanism after the user takes an action.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:overlayLibrary</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:overlayLibrary aura:id="overlayLib"/>
+                        <lightning:button name="modal" label="Show Modal" onclick="{!c.handleShowModal}"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Messages can be displayed in modals and popovers. Modals display a dialog in the foreground of the app, interrupting a user’s workflow and drawing attention to the message.
+                        Popovers display relevant information when you hover over a reference element.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:progressBar</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:progressBar value="{!v.progress}"/>
+                        <ui:button label="Show Progress" press="{!c.showProgress}"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	A horizontal progress bar that indicates the progress of an operation from left to right, such as for a file download or upload.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:radioGroup</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:radioGroup aura:id="mygroup"
+                                              name="radioButtonGroup"
+                                              label="Radio Button Group"
+                                              options="{! v.optionsRadio }"
+                                              value="{! v.valueOption }"
+                                              onchange="{! c.handleChangeOption }"
+                                              required="true" />
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	A set of radio buttons that can have a single option selected.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:recordViewForm</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:recordViewForm recordId="0030K00001LXVGHQA5" objectApiName="Contact">
+                            <div class="slds-box">
+                                <lightning:outputField fieldName="Name" />
+                                <lightning:outputField fieldName="Email" />
+                            </div>
+                        </lightning:recordViewForm>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Represents a record view that displays one or more fields fields based on their field types, provided by lightning:outputField.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:slider</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:slider step="10" value="{!v.myval}" onchange="{! c.handleChange }"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	A slider that enables numerical input between two specified numbers.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:tree</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <lightning:tree items="{! v.items }" header="Roles"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	Provides visualization of a structure hierarchy. Tree items, also known as branches, can be expanded or collapsed.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+        
+        <div class="tag-container slds-box slds-m-around_small">
+        	<div class="tag-header"><b>Tag Name:</b> lightning:outputNumber</div>
+            <lightning:accordion activeSectionName="A">
+                <lightning:accordionSection name="A" label="Usage">
+                    <div class="tag-usage-content slds-box">
+                        <ui:inputNumber label="Enter a number: " value="{!v.myNumber}" updateOn="keyup"/> <br/>
+    					<ui:outputNumber value="{!v.myNumber}"/>
+                    </div>
+                </lightning:accordionSection>
+                
+                <lightning:accordionSection name="B" label="Description">
+                	<div class="tag-description-content slds-box">
+                    	ui:outputNumber ignores non-number values and doesn’t output anything. Previously, ui:outputNumber displayed an error that was hard to debug for non-number values, such as: <ui:outputNumber value="abc" />.
+                    </div>
+                </lightning:accordionSection>
+        	</lightning:accordion>
+        </div>
+    </div>
+	
+</aura:component>

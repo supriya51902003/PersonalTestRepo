@@ -1,0 +1,47 @@
+.THIS.page-container{
+    background-color: #f4f6f9;
+    border-radius:4px;
+}
+
+.THIS .page-header {
+    background: rgb(75, 178, 223) !important;
+    padding: 4px !important;
+    color:#FFFFFF;
+}
+.THIS .page-header .page-header-text {
+	font-size: 1.75rem;
+    font-weight:bold;
+}
+
+.THIS .page-subheader {
+    background: rgb(75, 178, 223) !important;
+    padding: 4px !important;
+    margin: 5px 0px !important;
+    color:#FFFFFF;
+}
+
+.THIS .page-subheader .page-subheader-text {
+	font-size: 1rem;
+    font-weight:bold;
+}
+
+.THIS .tag-container{
+    box-shadow: 0px 3px 20px 3px;
+}
+
+.THIS .tag-header{
+    font-size:18px;
+    border-bottom:1px solid #DDDDDD;
+}
+
+.THIS .tag-usage-header{
+    font-size:18px;
+}
+
+.THIS .tag-usage-content{
+    font-size:14px;
+}
+
+.THIS .tag-description-content{
+    font-size:14px;
+}

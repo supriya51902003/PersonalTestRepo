@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Create Account with respect to CRUD">
+        <lightning-input label="Account Name" onchange={handleOnChange}>
+        </lightning-input>
+        <lightning-button variant="brand" label="create account" title="create account" onclick={handleCreateAccount}
+            class="slds-m-left_x-small"></lightning-button>
+        <p slot="footer">This Component checks the CRUD in LWC. The Created Record Id is : {createdAccountId}</p>
+        <p slot="footer">errors:- {error}</p>
+    </lightning-card>
+</template>
